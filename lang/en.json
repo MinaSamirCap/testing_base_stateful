@@ -1,0 +1,15 @@
+{
+  "full_app_name": "Facility Management System",
+  "app_name": "FMS",
+  "next": "Next",
+  "what_email": "What's your email ?",
+  "verify_code": "Verification code",
+  "code_error": "Code must be a 5 Number",
+  "add_email": "Add your E-mail",
+  "add_pass": "And Your Password",
+  "login": "Login",
+  "forget_pass": "Forgot password ?",
+  "type_pass": "Type a password",
+  "re_type_pass": "Re-type a password",
+  "required": "Required"
+}
