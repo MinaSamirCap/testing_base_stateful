@@ -9,10 +9,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:testing_base_stateful/main.dart';
 import 'package:testing_base_stateful/my_home_page.dart';
+import 'package:testing_base_stateful/my_second_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization.dart';
+import 'package:testing_base_stateful/utils/lang/app_localization_keys.dart';
+
+import 'app_localization_util_test.dart';
 
 void main() {
   Widget createWidgetUnderTest() {
@@ -46,26 +48,26 @@ void main() {
         DefaultCupertinoLocalizations.delegate
       ],
 
-      locale: const Locale(CODE_EN),
+      locale: const Locale(CODE_AR),
 
-      home: const MyHomePage(title: "Flutter Demo Home Page"),
+      home: const MyHomePage(),
 
-      /*routes: {
-        NormalUserHomeScreen.ROUTE_NAME: (ctx) => NormalUserHomeScreen(),
-        LoginMailScreen.ROUTE_NAME: (ctx) => LoginMailScreen(),
-        SettingScreen.ROUTE_NAME: (ctx) => SettingScreen()
-      },*/
+      routes: {
+        MyHomePage.routeName: (ctx) => const MyHomePage(),
+        MySecondPage.routeName: (ctx) => const MySecondPage()
+      },
     );
   }
 
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(createWidgetUnderTest());
+    var keyString = await getJsonLocals("ar", LangKeys.NEXT);
     await tester.pumpAndSettle();
 
     // Verify that our counter starts at 0.
-    expect(find.text('Next: 0'), findsOneWidget);
-    expect(find.text('Next: 1'), findsNothing);
+    expect(find.text('$keyString: 0'), findsOneWidget);
+    expect(find.text('$keyString: 1'), findsNothing);
     expect(find.byIcon(Icons.add), findsOneWidget);
 
     // Tap the '+' icon and trigger a frame.
@@ -73,7 +75,7 @@ void main() {
     await tester.pump();
 
     // Verify that our counter has incremented.
-    expect(find.text('Next: 0'), findsNothing);
-    expect(find.text('Next: 1'), findsOneWidget);
+    expect(find.text('$keyString: 0'), findsNothing);
+    expect(find.text('$keyString: 1'), findsOneWidget);
   });
 }

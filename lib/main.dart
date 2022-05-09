@@ -6,6 +6,8 @@ import 'package:testing_base_stateful/my_home_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization.dart';
 import 'package:testing_base_stateful/utils/lang/language_cubit.dart';
 
+import 'my_second_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -52,7 +54,11 @@ class MyApp extends StatelessWidget {
 
             locale: state,
 
-            home: const MyHomePage(title: "Flutter Demo Home Page"),
+            home: const MyHomePage(),
+            routes: {
+              MyHomePage.routeName: (ctx) => const MyHomePage(),
+              MySecondPage.routeName: (ctx) => const MySecondPage()
+            },
           );
         },
       ),

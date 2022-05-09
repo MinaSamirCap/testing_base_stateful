@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:testing_base_stateful/base/base_stateful_widget.dart';
+import 'package:testing_base_stateful/my_second_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization_keys.dart';
 
 class MyHomePage extends BaseStatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  static const routeName = '/my-home-page';
 
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   BaseState<BaseStatefulWidget> baseCreateState() => _MyHomePageState();
@@ -24,7 +25,7 @@ class _MyHomePageState extends BaseState<MyHomePage> {
   Widget baseBuild(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text("Flutter Demo"),
       ),
       body: Center(
         child: Column(
@@ -40,10 +41,21 @@ class _MyHomePageState extends BaseState<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+      floatingActionButton: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FloatingActionButton(
+              child: const Icon(Icons.navigate_next_rounded),
+              onPressed: () {
+                Navigator.of(context).pushNamed(MySecondPage.routeName);
+              }),
+          const SizedBox(width: 20),
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: const Icon(Icons.add),
+          )
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
