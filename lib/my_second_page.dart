@@ -12,14 +12,6 @@ class MySecondPage extends BaseStatefulWidget {
 }
 
 class _MySecondPageState extends BaseState<MySecondPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget baseBuild(BuildContext context) {
     return Scaffold(

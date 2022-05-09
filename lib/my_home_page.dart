@@ -45,12 +45,14 @@ class _MyHomePageState extends BaseState<MyHomePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           FloatingActionButton(
+            heroTag: "btnNav",
               child: const Icon(Icons.navigate_next_rounded),
               onPressed: () {
                 Navigator.of(context).pushNamed(MySecondPage.routeName);
               }),
           const SizedBox(width: 20),
           FloatingActionButton(
+            heroTag: "btnIncrement",
             onPressed: _incrementCounter,
             tooltip: 'Increment',
             child: const Icon(Icons.add),
