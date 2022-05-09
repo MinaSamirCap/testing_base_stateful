@@ -9,8 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:testing_base_stateful/my_home_page.dart';
-import 'package:testing_base_stateful/my_second_page.dart';
+import 'package:testing_base_stateful/ui/home/my_home_page.dart';
+import 'package:testing_base_stateful/ui/second/my_second_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization_keys.dart';
 
@@ -62,7 +62,7 @@ void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(createWidgetUnderTest());
-    var keyString = await getJsonLocals("ar", LangKeys.NEXT);
+    var keyString = await getJsonLocals("ar", LangKeys.next);
     await tester.pumpAndSettle();
 
     // Verify that our counter starts at 0.

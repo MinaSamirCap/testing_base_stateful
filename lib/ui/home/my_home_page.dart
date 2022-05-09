@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:testing_base_stateful/base/base_stateful_widget.dart';
-import 'package:testing_base_stateful/my_second_page.dart';
+import 'package:testing_base_stateful/ui/second/my_second_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization_keys.dart';
 
 class MyHomePage extends BaseStatefulWidget {
@@ -35,7 +35,7 @@ class _MyHomePageState extends BaseState<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              translate(LangKeys.NEXT)! + ': $_counter',
+              translate(LangKeys.next)! + ': $_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],

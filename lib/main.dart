@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:testing_base_stateful/my_home_page.dart';
+import 'package:testing_base_stateful/ui/home/my_home_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization.dart';
 import 'package:testing_base_stateful/utils/lang/language_cubit.dart';
 
-import 'my_second_page.dart';
+import 'ui/second/my_second_page.dart';
 
 void main() {
   runApp(const MyApp());
