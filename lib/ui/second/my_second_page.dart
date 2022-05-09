@@ -44,6 +44,10 @@ class _MySecondPageState extends BaseState<_MySecondPage> {
       appBar: AppBar(
         title: const Text("Flutter Second"),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.wifi),
+      ),
       body: BlocListener<SecondBloc, SecondState>(
         listener: (context, state) {
           if (state is ErrorSte) {

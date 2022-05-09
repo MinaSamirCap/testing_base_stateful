@@ -32,6 +32,7 @@ void main() {
       /// for the proper
       /// language is loaded ...
       localizationsDelegates: const [
+
         /// A class which loads the translations from JSON files
         AppLocalizations.delegate,
 
@@ -77,5 +78,23 @@ void main() {
     // Verify that our counter has incremented.
     expect(find.text('$keyString: 0'), findsNothing);
     expect(find.text('$keyString: 1'), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.navigate_next_rounded));
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.add), findsOneWidget);
+  });
+
+  testWidgets('Second screen displayed', (WidgetTester tester) async {
+    // Build our app and trigger a frame.
+    await tester.pumpWidget(createWidgetUnderTest());
+    await tester.pumpAndSettle();
+
+    // Tap the '>' icon and trigger a frame.
+    await tester.tap(find.byIcon(Icons.navigate_next_rounded));
+    await tester.pump();
+
+    // Verify that wifi icon is exits in the second screen.
+    await tester.pumpAndSettle();
+    expect(find.byIcon(Icons.wifi), findsOneWidget);
   });
 }
