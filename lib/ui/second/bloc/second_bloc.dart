@@ -9,7 +9,7 @@ part 'second_event.dart';
 part 'second_state.dart';
 
 class SecondBloc extends Bloc<SecondEvent, SecondState> {
-  final BaseSecondRepository repository;
+  BaseSecondRepository repository;
 
   SecondBloc(this.repository) : super(InitialSte()) {
     on<SecondEvent>((event, emit) async {

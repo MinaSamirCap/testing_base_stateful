@@ -15,21 +15,24 @@ class MySecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = SecondBloc(SecondRepository(ApiManager()));
     return BlocProvider<SecondBloc>(
-      create: (ctx) => SecondBloc(SecondRepository(ApiManager())),
-      child: const _MySecondPage(),
+      create: (ctx) => bloc,
+      child: MySecondPageBloc(bloc),
     );
   }
 }
 
-class _MySecondPage extends BaseStatefulWidget {
-  const _MySecondPage({Key? key}) : super(key: key);
+class MySecondPageBloc extends BaseStatefulWidget {
+  final SecondBloc bloc;
+
+  const MySecondPageBloc(this.bloc, {Key? key}) : super(key: key);
 
   @override
   BaseState<BaseStatefulWidget> baseCreateState() => _MySecondPageState();
 }
 
-class _MySecondPageState extends BaseState<_MySecondPage> {
+class _MySecondPageState extends BaseState<MySecondPageBloc> {
   @override
   void initState() {
     Future.delayed(Duration.zero).then((value) {
@@ -128,7 +131,7 @@ class _MySecondPageState extends BaseState<_MySecondPage> {
   /////////////////// Helper methods ////////////////////////
   ///////////////////////////////////////////////////////////
 
-  SecondBloc get currentBloc => BlocProvider.of<SecondBloc>(context);
+  SecondBloc get currentBloc => widget.bloc;
 
   void _startApi() {
     currentBloc.add(StartApiEvt());
