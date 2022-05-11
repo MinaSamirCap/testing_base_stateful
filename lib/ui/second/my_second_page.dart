@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:testing_base_stateful/api/api_manager.dart';
@@ -33,12 +34,20 @@ class MySecondPageBloc extends BaseStatefulWidget {
 }
 
 class _MySecondPageState extends BaseState<MySecondPageBloc> {
+  late Future startFuture;
+
   @override
   void initState() {
-    Future.delayed(Duration.zero).then((value) {
+    startFuture = Future.delayed(Duration.zero).then((value) {
       _startApi();
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    CancelableOperation.fromFuture(startFuture).cancel();
+    super.dispose();
   }
 
   @override
