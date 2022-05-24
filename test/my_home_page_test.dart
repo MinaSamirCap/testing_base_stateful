@@ -5,10 +5,14 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:testing_base_stateful/ui/home/bloc/my_home_bloc.dart';
 import 'package:testing_base_stateful/ui/home/my_home_page.dart';
 import 'package:testing_base_stateful/ui/second/my_second_page.dart';
 import 'package:testing_base_stateful/utils/lang/app_localization.dart';
@@ -16,7 +20,30 @@ import 'package:testing_base_stateful/utils/lang/app_localization_keys.dart';
 
 import 'app_localization_util_test.dart';
 
+/// mocking ...
+class MockMyHomeBloc extends MockBloc<MyHomeEvent, MyHomeState>
+    implements MyHomeBloc {}
+
+class FakeMyHomeEvent extends Fake implements MyHomeEvent {}
+
+class FakeMyHomeState extends Fake implements MyHomeState {}
+
 void main() {
+  setUpAll(() {
+    registerFallbackValue(FakeMyHomeEvent());
+    registerFallbackValue(FakeMyHomeState());
+  });
+
+  late MockMyHomeBloc bloc;
+
+  setUp(() {
+    bloc = MockMyHomeBloc();
+  });
+
+  void fakeNextPageSte() {
+    when(() => bloc.state).thenReturn(NextScreenSte());
+  }
+
   Widget createWidgetUnderTest() {
     return MaterialApp(
       title: 'FMS',
@@ -32,7 +59,6 @@ void main() {
       /// for the proper
       /// language is loaded ...
       localizationsDelegates: const [
-
         /// A class which loads the translations from JSON files
         AppLocalizations.delegate,
 
@@ -51,10 +77,12 @@ void main() {
 
       locale: const Locale(CODE_AR),
 
-      home: const MyHomePage(),
-
+      home: BlocProvider<MyHomeBloc>(
+        create: (ctx) => bloc,
+        child: MyHomePageBloc(bloc),
+      ),
       routes: {
-        MyHomePage.routeName: (ctx) => const MyHomePage(),
+        //MyHomePage.routeName: (ctx) => const MyHomePage(),
         MySecondPage.routeName: (ctx) => const MySecondPage()
       },
     );
@@ -62,6 +90,7 @@ void main() {
 
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
+    fakeNextPageSte();
     await tester.pumpWidget(createWidgetUnderTest());
     var keyString = await getJsonLocals("ar", LangKeys.next);
     await tester.pumpAndSettle();
@@ -86,13 +115,15 @@ void main() {
 
   testWidgets('Second screen displayed', (WidgetTester tester) async {
     // Build our app and trigger a frame.
+
+    fakeNextPageSte();
+    whenListen(
+      bloc,
+      Stream.fromIterable([NextScreenSte()]),
+    );
+
+    //await tester.pump();
     await tester.pumpWidget(createWidgetUnderTest());
-    await tester.pumpAndSettle();
-
-    // Tap the '>' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.navigate_next_rounded));
-    await tester.pump();
-
     // Verify that wifi icon is exits in the second screen.
     await tester.pumpAndSettle();
     expect(find.byIcon(Icons.wifi), findsOneWidget);
